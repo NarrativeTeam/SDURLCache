@@ -300,12 +300,12 @@ static NSDate *_parseHTTPDate(const char *buf, size_t bufLen) {
 // deadlock-free variant of dispatch_sync
 void dispatch_sync_afreentrant(dispatch_queue_t queue, dispatch_block_t block);
 inline void dispatch_sync_afreentrant(dispatch_queue_t queue, dispatch_block_t block) {
-    dispatch_get_current_queue() == queue ? block() : dispatch_sync(queue, block);
+    dispatch_get_main_queue() == queue ? block() : dispatch_sync(queue, block);
 }
 
 void dispatch_async_afreentrant(dispatch_queue_t queue, dispatch_block_t block);
 inline void dispatch_async_afreentrant(dispatch_queue_t queue, dispatch_block_t block) {
-	dispatch_get_current_queue() == queue ? block() : dispatch_async(queue, block);
+	dispatch_get_main_queue() == queue ? block() : dispatch_async(queue, block);
 }
 
 @interface SDURLCache ()
