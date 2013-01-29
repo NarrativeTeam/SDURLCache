@@ -778,7 +778,9 @@ static dispatch_queue_t get_disk_io_queue() {
 - (void)dealloc {
     if(_maintenanceTimer) {
         dispatch_source_cancel(_maintenanceTimer);
-        //dispatch_release(_maintenanceTimer);
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+            dispatch_release(_maintenanceTimer);
+        #endif
     }
     _diskCachePath = nil;
     _diskCacheInfo = nil;
